@@ -1,46 +1,56 @@
-fetch('game.json')
-  .then(res => res.json())
-  .then(initGame);
-
-let gameData, currentStage = 0, playerName;
-
-function initGame(data) {
-  gameData = data;
-}
-
-function startGame() {
-  playerName = document.getElementById("player-name").value || "اللاعب";
-  currentStage = 0;
-  loadStage(currentStage);
-}
-
-function loadStage(i) {
-  const stage = gameData.levels.version1.stages[i];
-  if (!stage) {
-    document.getElementById("game-container").innerHTML = `<h2>تهانينا ${playerName}! أكملت كل المراحل.</h2>`;
-    return;
-  }
-
-  document.getElementById("level-info").innerText = stage.name;
-  document.getElementById("ai-dialogue").innerText = `AI: ${gameData.ai.persona[Math.min(i, gameData.ai.persona.length-1)].dialogue}`;
-
-  const qDiv = document.getElementById("questions-container");
-  qDiv.innerHTML = "";
-  stage.puzzles.forEach(q => {
-    const btn = document.createElement("button");
-    btn.innerText = q.question;
-    btn.onclick = () => checkAnswer(q);
-    qDiv.appendChild(btn);
-  });
-}
-
-function checkAnswer(q) {
-  const ans = prompt(`${q.question}\n${q.options.join(" | ")}`);
-  if (ans === q.answer) {
-    alert("ممتاز! إجابة صحيحة 🎉");
-    currentStage++;
-    loadStage(currentStage);
-  } else {
-    alert(`خطأ! الإجابة الصحيحة: ${q.answer}`);
+{
+  "levels": {
+    "version1": {
+      "stages": [
+        {"id":1,"name":"المرحلة 1: بداية الألغاز","puzzles":[{"question":"ما هو ناتج 5 + 7؟","options":["10","11","12","13"],"answer":"12"},{"question":"ما هو أصغر عدد أولي أكبر من 10؟","options":["11","12","13","14"],"answer":"11"}],"reward":{"character":"Lumina (Live2D)"}},
+        {"id":2,"name":"المرحلة 2: تحدي الذكاء","puzzles":[{"question":"إذا كانت X = 7، فما هو X × 3؟","options":["20","21","24","25"],"answer":"21"},{"question":"أكمل التسلسل: 2, 4, 6, ___","options":["7","8","9","10"],"answer":"8"}],"reward":{"character":"Kaeya (Genshin 3D)"}},
+        {"id":3,"name":"المرحلة 3: ذكاء اصطناعي","puzzles":[{"question":"ما هو العدد الزوجي التالي بعد 14؟","options":["15","16","17","18"],"answer":"16"},{"question":"إذا كانت Y = 5 و Z = 2، فما هو Y × Z؟","options":["7","8","10","12"],"answer":"10"}],"reward":{"character":"Amber (Genshin 3D)"}},
+        {"id":4,"name":"المرحلة 4: تسلسل الأرقام","puzzles":[{"question":"أكمل التسلسل: 1, 3, 5, ___","options":["6","7","8","9"],"answer":"7"},{"question":"5 + 9 = ؟","options":["12","13","14","15"],"answer":"14"}],"reward":{"character":"Mona (Live2D)"}},
+        {"id":5,"name":"المرحلة 5: الجمع والطرح","puzzles":[{"question":"12 - 4 = ؟","options":["6","7","8","9"],"answer":"8"},{"question":"3 + 9 = ؟","options":["11","12","13","14"],"answer":"12"}],"reward":{"character":"Razor (Genshin 3D)"}},
+        {"id":6,"name":"المرحلة 6: تحديات التفكير","puzzles":[{"question":"إذا كانت X = 6، فما هو X × 4؟","options":["20","22","24","26"],"answer":"24"},{"question":"أكمل التسلسل: 10, 8, 6, ___","options":["5","4","3","2"],"answer":"4"}],"reward":{"character":"Kaedehara Kazuha (Genshin 3D)"}},
+        {"id":7,"name":"المرحلة 7: ذكاء رياضي","puzzles":[{"question":"ما هو العدد الفردي التالي بعد 13؟","options":["14","15","16","17"],"answer":"15"},{"question":"2 × 6 = ؟","options":["10","11","12","13"],"answer":"12"}],"reward":{"character":"Sucrose (Live2D)"}},
+        {"id":8,"name":"المرحلة 8: الألغاز المنطقية","puzzles":[{"question":"إذا كانت Y = 7، فما هو Y + 5؟","options":["11","12","13","14"],"answer":"12"},{"question":"أكمل التسلسل: 3, 6, 9, ___","options":["11","12","13","15"],"answer":"12"}],"reward":{"character":"Fischl (Genshin 3D)"}},
+        {"id":9,"name":"المرحلة 9: التفكير العميق","puzzles":[{"question":"5 × 5 = ؟","options":["20","25","30","35"],"answer":"25"},{"question":"أكمل التسلسل: 2, 4, 8, 16, ___","options":["24","28","32","36"],"answer":"32"}],"reward":{"character":"Barbara (Live2D)"}},
+        {"id":10,"name":"المرحلة 10: تحدي العقل","puzzles":[{"question":"إذا كانت X = 9، فما هو X × 2؟","options":["16","17","18","19"],"answer":"18"},{"question":"3 + 7 = ؟","options":["9","10","11","12"],"answer":"10"}],"reward":{"character":"Xiangling (Genshin 3D)"}},
+        {"id":11,"name":"المرحلة 11: التسلسل 1","puzzles":[{"question":"أكمل التسلسل: 1, 4, 7, ___","options":["9","10","11","12"],"answer":"10"},{"question":"8 + 6 = ؟","options":["12","13","14","15"],"answer":"14"}],"reward":{"character":"Ningguang (Live2D)"}},
+        {"id":12,"name":"المرحلة 12: التسلسل 2","puzzles":[{"question":"إذا كانت Y = 3، فما هو Y × 5؟","options":["15","16","17","18"],"answer":"15"},{"question":"10 - 4 = ؟","options":["5","6","7","8"],"answer":"6"}],"reward":{"character":"Beidou (Genshin 3D)"}},
+        {"id":13,"name":"المرحلة 13: الأرقام","puzzles":[{"question":"أكمل التسلسل: 2, 5, 8, ___","options":["10","11","12","13"],"answer":"11"},{"question":"7 + 6 = ؟","options":["12","13","14","15"],"answer":"13"}],"reward":{"character":"Noelle (Live2D)"}},
+        {"id":14,"name":"المرحلة 14: المنطق","puzzles":[{"question":"إذا كانت X = 8، فما هو X ÷ 2؟","options":["2","3","4","5"],"answer":"4"},{"question":"أكمل التسلسل: 3, 6, 12, ___","options":["15","18","24","20"],"answer":"24"}],"reward":{"character":"Razor (Genshin 3D)"}},
+        {"id":15,"name":"المرحلة 15: تحدي سريع","puzzles":[{"question":"5 + 8 = ؟","options":["12","13","14","15"],"answer":"13"},{"question":"أكمل التسلسل: 1, 2, 4, 8, ___","options":["12","14","16","18"],"answer":"16"}],"reward":{"character":"Fischl (Live2D)"}},
+        {"id":16,"name":"المرحلة 16: ذكاء اصطناعي","puzzles":[{"question":"إذا كانت Y = 6، فما هو Y × 6؟","options":["30","32","36","38"],"answer":"36"},{"question":"9 - 3 = ؟","options":["5","6","7","8"],"answer":"6"}],"reward":{"character":"Mona (Genshin 3D)"}},
+        {"id":17,"name":"المرحلة 17: التفكير","puzzles":[{"question":"أكمل التسلسل: 2, 3, 5, 8, ___","options":["11","12","13","14"],"answer":"13"},{"question":"7 × 3 = ؟","options":["20","21","22","23"],"answer":"21"}],"reward":{"character":"Lumina (Live2D)"}},
+        {"id":18,"name":"المرحلة 18: المنطق الرياضي","puzzles":[{"question":"إذا كانت X = 10، فما هو X ÷ 5؟","options":["1","2","3","4"],"answer":"2"},{"question":"أكمل التسلسل: 5, 10, 20, ___","options":["25","30","35","40"],"answer":"40"}],"reward":{"character":"Kaeya (Genshin 3D)"}},
+        {"id":19,"name":"المرحلة 19: تحدي الذكاء","puzzles":[{"question":"4 × 7 = ؟","options":["27","28","29","30"],"answer":"28"},{"question":"9 + 6 = ؟","options":["14","15","16","17"],"answer":"15"}],"reward":{"character":"Amber (Genshin 3D)"}},
+        {"id":20,"name":"المرحلة 20: المرحلة النهائية","puzzles":[{"question":"أكمل التسلسل: 1, 1, 2, 3, 5, ___","options":["7","8","9","10"],"answer":"8"},{"question":"10 - 3 = ؟","options":["6","7","8","9"],"answer":"7"}],"reward":{"character":"Xiangling (Live2D)"}}
+      ]
+    },
+    "version2": {
+      "stages": [
+        {"id":1,"name":"المرحلة 1: لغز المتاهة","puzzles":[{"question":"كم عدد الحروف في كلمة 'ذكاء'؟","options":["3","4","5","6"],"answer":"3"}],"reward":{"character":"Mona (Live2D)"}},
+        {"id":2,"name":"المرحلة 2: بداية التحدي","puzzles":[{"question":"إذا كانت X = 2، فما هو X × 5؟","options":["8","9","10","11"],"answer":"10"}],"reward":{"character":"Kaeya (Genshin 3D)"}},
+        {"id":3,"name":"المرحلة 3: التفكير المنطقي","puzzles":[{"question":"أكمل التسلسل: 2, 4, 6, ___","options":["7","8","9","10"],"answer":"8"}],"reward":{"character":"Amber (Genshin 3D)"}},
+        {"id":4,"name":"المرحلة 4: تحدي الرياضيات","puzzles":[{"question":"5 + 7 = ؟","options":["11","12","13","14"],"answer":"12"}],"reward":{"character":"Lumina (Live2D)"}},
+        {"id":5,"name":"المرحلة 5: ذكاء اصطناعي","puzzles":[{"question":"9 - 4 = ؟","options":["4","5","6","7"],"answer":"5"}],"reward":{"character":"Xiangling (Live2D)"}},
+        {"id":6,"name":"المرحلة 6: المرحلة المتقدمة","puzzles":[{"question":"أكمل التسلسل: 1, 2, 4, 8, ___","options":["12","14","16","18"],"answer":"16"}],"reward":{"character":"Razor (Genshin 3D)"}},
+        {"id":7,"name":"المرحلة 7: التحدي الكبير","puzzles":[{"question":"3 × 7 = ؟","options":["19","20","21","22"],"answer":"21"}],"reward":{"character":"Mona (Live2D)"}},
+        {"id":8,"name":"المرحلة 8: عقل متقدم","puzzles":[{"question":"إذا كانت Y = 6، فما هو Y × 6؟","options":["30","32","36","38"],"answer":"36"}],"reward":{"character":"Kaedehara Kazuha (Genshin 3D)"}},
+        {"id":9,"name":"المرحلة 9: الألغاز النهائية","puzzles":[{"question":"أكمل التسلسل: 2, 3, 5, 8, ___","options":["11","12","13","14"],"answer":"13"}],"reward":{"character":"Sucrose (Live2D)"}},
+        {"id":10,"name":"المرحلة 10: الذكاء النهائي","puzzles":[{"question":"7 + 9 = ؟","options":["15","16","17","18"],"answer":"16"}],"reward":{"character":"Beidou (Genshin 3D)"}}
+      ]
+    }
+  },
+  "ai": {
+    "persona":[
+      {"level":1,"dialogue":"مرحبًا! هل تستطيع حل هذه الألغاز؟"},
+      {"level":2,"dialogue":"المرحلة أصبحت أصعب الآن، هل أنت مستعد؟"},
+      {"level":3,"dialogue":"الذكاء الاصطناعي يزداد قوة!"},
+      {"level":4,"dialogue":"الأسئلة تزداد صعوبة، ركز جيدًا!"},
+      {"level":5,"dialogue":"هل تستطيع التغلب على هذا التحدي؟"},
+      {"level":6,"dialogue":"ذكائك على المحك الآن!"},
+      {"level":7,"dialogue":"لا شيء مستحيل، لكن الأمر صعب!"},
+      {"level":8,"dialogue":"الذكاء الاصطناعي سيختبر كل مهارتك!"},
+      {"level":9,"dialogue":"ابقَ مركزًا، التحدي الكبير أمامك!"},
+      {"level":10,"dialogue":"لقد وصلت إلى مستوى المحترفين!"}
+    ]
   }
 }
