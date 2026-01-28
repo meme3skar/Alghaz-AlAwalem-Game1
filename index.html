@@ -1,1 +1,29 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Alghaz AlAwalem</title></head><body><h1>مرحبا بالعالم</h1></body></html>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>ألغاز العوالم</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="game-container">
+  <h1>ألغاز العوالم</h1>
+  <div>
+    <label>اسم اللاعب:</label>
+    <input type="text" id="player-name" placeholder="ادخل اسمك">
+    <button onclick="startGame()">ابدأ اللعب</button>
+  </div>
+  <select id="mode-select">
+    <option value="PvE">PvE</option>
+    <option value="PvP">PvP</option>
+    <option value="Co-op">Co‑op</option>
+  </select>
+  <div id="level-info"></div>
+  <canvas id="character-canvas" width="800" height="400"></canvas>
+  <div id="ai-dialogue"></div>
+  <div id="questions-container"></div>
+  <div id="reward"></div>
+</div>
+<script src="game.js"></script>
+</body>
+</html>
