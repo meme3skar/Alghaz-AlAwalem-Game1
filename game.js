@@ -1,3 +1,4 @@
+// Placeholder JS
 fetch('game.json')
   .then(res => res.json())
   .then(initGame);
